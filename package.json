@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.26.1",
+    "lodash.debounce": "^4.0.8",
     "mapbox-gl": "^2.7.0",
     "next": "12.1.0",
     "react": "17.0.2",

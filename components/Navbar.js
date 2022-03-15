@@ -1,7 +1,8 @@
 import Image from 'next/image';
-import React from 'react';
+import { useContext } from 'react';
 import avatar from '../assets/images/avatar.png';
 import { BsPerson } from 'react-icons/bs';
+import { UberContext } from '../context';
 
 const style = {
   wrapper: `h-16 w-full bg-black text-white flex items-center px-60 fixed z-20 md:justify-around`,
@@ -11,13 +12,14 @@ const style = {
   rightMenu: `flex gap-3 items-center`,
   userImageContainer: `mr-2`,
   userImage: `h-10 w-10 mr-4 rounded-full p-px object-cover cursor-pointer`,
-  loginBtn: `flex items-center cursor-pointer rounded-full hover:bg-[#333333] px-4 py-1`,
+  loginBtn: `flex items-center cursor-pointer rounded-full hover:bg-[#333333] px-4 py-1 cursor-pointer`,
   loginText: `ml-2`,
 };
 
-const currentAccount = '0x9D5fF810A20e184958306DB91220123d6605188d';
+// const currentAccount = '0x9D5fF810A20e184958306DB91220123d6605188d';
 
 const Navbar = () => {
+  const { currentAccount, connectWallet } = useContext(UberContext);
   return (
     <div className={style.wrapper}>
       <div className={style.leftMenu}>
@@ -45,7 +47,7 @@ const Navbar = () => {
             {currentAccount.slice(currentAccount.length - 3)}
           </div>
         ) : (
-          <div className={style.loginBtn}>
+          <div className={style.loginBtn} onClick={connectWallet}>
             <BsPerson />
             <div className={style.loginText}>Log in</div>
           </div>
