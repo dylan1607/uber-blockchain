@@ -1,14 +1,16 @@
 import { FaEthereum } from 'react-icons/fa';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import url from '../constants/url';
+import request from '../utils/request';
+import { UberContext } from '../context';
 
 const style = {
   wrapper: `h-full flex flex-col`,
   title: `text-gray-500 text-center text-xs py-2 border-b`,
   carList: `flex flex-col flex-1 overflow-y-auto`,
   car: `flex p-3 m-2 items-center border-2 border-white`,
-  selectedCar: `border-2 border-black flex p-3 m-2 items-center`,
+  selectedCar: `border-2 border-black bg-[#eeeeee] flex p-3 m-2 items-center`,
   carImage: `h-14`,
   carDetails: `ml-2 flex-1`,
   service: `font-medium`,
@@ -17,18 +19,20 @@ const style = {
   price: `mr-[0.2rem]`,
 };
 
-const basePrice = 1542;
-
 const RiderSelector = () => {
+  const { selectedRide, setSelectedRide, setPrice, basePrice } =
+    useContext(UberContext);
   const [carList, setCarList] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('/api/car-lists');
-        const data = await res.json();
-        setCarList(data.data);
-      } catch (error) {}
+        const res = await request.get('/api/car-lists?populate=*');
+        setCarList(res.data.data);
+        setSelectedRide(res.data.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
 
@@ -37,7 +41,26 @@ const RiderSelector = () => {
       <div className={style.title}>Choose a ride, or swipe up for more</div>
       <div className={style.carList}>
         {carList.map((car, index) => (
-          <div className={style.car} key={index}>
+          <div
+            className={`${
+              selectedRide == car.attributes.title
+                ? style.selectedCar
+                : style.car
+            }`}
+            key={index}
+            onClick={() => {
+              {
+                /* round value 5 digit */
+              }
+              setPrice(
+                (
+                  (basePrice / 10 ** 5) *
+                  car.attributes.priceMultiplier
+                ).toFixed(5)
+              );
+              setSelectedRide(car.attributes.title);
+            }}
+          >
             <Image
               className={style.carImage}
               src={
