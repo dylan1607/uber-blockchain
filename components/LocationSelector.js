@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import {
   VscDebugBreakpointLogUnverified,
   VscDebugBreakpointFunctionUnverified,
@@ -23,7 +23,7 @@ const LocationSelector = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.searchHeader}>
-        {inFocus === 'from' ? 'Where can we pick you up?' : 'Where to?'}
+        {inFocus === 'from' ? 'Choose starting point' : 'Choose destination'}
       </div>
       <div className={style.inputBoxes}>
         <div
@@ -39,7 +39,7 @@ const LocationSelector = () => {
             placeholder='Enter pickup location'
             value={pickup}
             onChange={(e) => setPickup(e.target.value)}
-            onFocus={(e) => setInFocus('from')}
+            onFocus={() => setInFocus('from')}
           />
         </div>
         <div className={style.verticalLine} />
@@ -56,7 +56,7 @@ const LocationSelector = () => {
             placeholder='Where to go?'
             value={dropoff}
             onChange={(e) => setDropoff(e.target.value)}
-            onFocus={(e) => setInFocus('to')}
+            onFocus={() => setInFocus('to')}
           />
         </div>
       </div>

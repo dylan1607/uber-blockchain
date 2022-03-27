@@ -137,9 +137,6 @@ export const UberProvider = ({ children }) => {
     }
   };
 
-  // Get info of current user
-  const getNodeInfo = async (address) => {};
-
   useEffect(() => {
     if (pickup && dropoff) {
       (() => {

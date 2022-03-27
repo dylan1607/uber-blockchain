@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import RiderSelector from './RiderSelector';
 import { UberContext } from '../context';
 import request from '../utils/request';
@@ -19,10 +19,10 @@ const Confirm = () => {
     price,
     sendTransaction,
   } = useContext(UberContext);
-  const storeTripDetails = async (pickup, dropoff) => {
+  const storeTripDetails = async () => {
     if (!currentAccount) return;
     try {
-      const res = await request.post('/api/trips', {
+      await request.post('/api/trips', {
         data: {
           dropoff: dropoffCordinates,
           pickup: pickupCordinates,

@@ -8,13 +8,13 @@ LABEL author.name="Dylan Tran"
 WORKDIR /usr/src/app
 
 # Copy dependencies, package.json, package-lock.json ...
-COPY package.json ./
+COPY package.json .
 
 # Install dependencies
 RUN npm install
 
 # Copy strapi.config.js
-COPY ./ ./
+COPY . .
 
 # Build strapi
 RUN npm run build

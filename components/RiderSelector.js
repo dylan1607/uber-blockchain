@@ -1,5 +1,5 @@
 import { FaEthereum } from 'react-icons/fa';
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import url from '../constants/url';
 import request from '../utils/request';
