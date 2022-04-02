@@ -13,14 +13,14 @@ COPY package.json .
 # Install dependencies
 RUN npm install
 
-# Copy strapi.config.js
+# Copy
 COPY . .
 
-# Build strapi
+# Build
 RUN npm run build
 
 # Config port
 EXPOSE 3000
 
-# Run strapi
+# Run
 CMD ["npm", "run", "start"]
